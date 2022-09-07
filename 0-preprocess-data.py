@@ -97,15 +97,32 @@ def transpose_dataframe():
 columns = ['first_currency','time','open','high','low','close','volume','market_cap']
 
 # filter_coins()
-transpose_dataframe()
+# transpose_dataframe()
 
 
 
 
+def detect_outliers():
+    df_close = pd.read_csv(f'data/ts-close.csv', converters={'time': lambda x: datetime.strptime(x, "%Y-%m-%d")},
+                           index_col=None)
+    df_close.set_index('time', inplace=True)
+
+    df_returns = df_close.pct_change(7)
+
+    data = {'coin': [], 'returns min': [], 'returns max': []}
+    for c in df_returns.columns:
+        # print(f'{c:30s};{np.max(df_returns[c])};{np.min(df_returns[c])}')
+        data['coin'].append(c)
+        data['returns min'].append(np.min(df_returns[c]))
+        data['returns max'].append(np.max(df_returns[c]))
+
+    # pd.DataFrame(data).to_excel('data/coins-outliers.xlsx', sheet_name='Sheet0')
+    # pd.DataFrame(data).to_csv('data/coins-outliers.csv')
 
 
 
 
+detect_outliers()
 
 
 

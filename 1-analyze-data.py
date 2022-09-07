@@ -14,7 +14,7 @@ def analyze_yearly_coins():
     coins = list(set(df['first_currency']))
     print(f'total coins: {len(coins)}')
 
-    years = list(range(2014, 2022))
+    years = list(range(2014, 2023))
     n_coins = []
     for y in years:
         t0 = datetime.strptime(f'{y}-01-01 23:59:59', "%Y-%m-%d %H:%M:%S")
